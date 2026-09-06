@@ -15,7 +15,7 @@ SOURCES = \
 	des_der.v \
 	selector_ope2.v \
 	selector_operaciones.v \
-	registro_resultados.v \
+	registro_resultado
 	calculadora_4_bits_tb_basico.sv
 
 # Compilar
