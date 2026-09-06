@@ -1,4 +1,4 @@
-module desplazamiento_izq (
+module des_izq (
     input wire [3:0] A,
     input wire [1:0] cantidad,
     output wire [3:0] S

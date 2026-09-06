@@ -1,4 +1,4 @@
-module selector_op2 (
+module selector_ope2 (
     input wire [3:0] op2_ext,
     input wire [3:0] resultado_anterior,
     input wire sel_op2,

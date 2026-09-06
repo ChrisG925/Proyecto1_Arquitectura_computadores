@@ -1,4 +1,4 @@
-module selector_operacion (
+module selector_operaciones (
     input wire [2:0] codigo,
 
     input wire [3:0] suma,
