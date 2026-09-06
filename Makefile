@@ -8,7 +8,7 @@ VVP = vvp
 TARGET = calculadora_tb.vvp
 
 SOURCES = \
-	calculadora_4bits.v \
+	calcul_4bits.v \
 	sumador_4bits.v \
 	restador_4bits.v \
 	des_izq.v \
