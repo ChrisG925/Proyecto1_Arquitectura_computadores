@@ -1,7 +1,7 @@
-module registro_resultado (
-    input wire clk,
-    input wire ejecutar,
-    input wire reset,
+module registro_resultados (
+    input wire       clk,
+    input wire       ejecutar,
+    input wire       reset,
     input wire [3:0] resultado_calculado,
     output reg [3:0] resultado
 );
