@@ -1,0 +1,8 @@
+# Archivos de simulacion
+*.vcd
+*.vvp
+
+# Archivos generados para la FPGA
+top.asc
+top.json
+top.bin
