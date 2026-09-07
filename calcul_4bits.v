@@ -8,52 +8,41 @@ module calculadora_4bits (
     output wire [3:0] resultado
 );
 
-    // =====================================================
-    // SEÑALES INTERNAS
-    // =====================================================
-
     wire [3:0] op2;
-
     wire [3:0] suma;
     wire [3:0] resta;
     wire [3:0] resta_inversa;
-
     wire [3:0] shift_izq;
     wire [3:0] shift_der;
-
     wire [3:0] resultado_calculado;
     wire [3:0] resultado_anterior;
 
-    // Señal de reset para codigo = 000
     wire n_codigo0;
     wire n_codigo1;
     wire n_codigo2;
+
+    wire codigo_reset;
     wire reset_codigo;
-
-
-    // =====================================================
-    // RESET
-    // codigo = 000
-    // =====================================================
 
     not inv_codigo0 (n_codigo0, codigo[0]);
     not inv_codigo1 (n_codigo1, codigo[1]);
     not inv_codigo2 (n_codigo2, codigo[2]);
 
-    and reset_gate (
-        reset_codigo,
+    // Detecta cuando el codigo de operacion es 000
+    and reset_detect (
+        codigo_reset,
         n_codigo2,
         n_codigo1,
         n_codigo0
     );
 
-
-    // =====================================================
-    // SELECTOR DEL SEGUNDO OPERANDO
-    //
-    // sel_op2 = 0 -> op2_ext
-    // sel_op2 = 1 -> resultado anterior
-    // =====================================================
+    // El resultado se reinicia solamente cuando
+    // se confirma la operacion 000 con ejecutar
+    and reset_gate (
+        reset_codigo,
+        codigo_reset,
+        ejecutar
+    );
 
     selector_ope2 SEL_OP2 (
         .op2_ext(op2_ext),
@@ -62,24 +51,11 @@ module calculadora_4bits (
         .op2(op2)
     );
 
-
-    // =====================================================
-    // SUMA
-    // codigo = 001
-    // =====================================================
-
     sumador_4bits SUMADOR (
         .A(op1),
         .B(op2),
         .S(suma)
     );
-
-
-    // =====================================================
-    // RESTA
-    // codigo = 010
-    // A - B
-    // =====================================================
 
     restador_4bits RESTADOR (
         .A(op1),
@@ -87,25 +63,11 @@ module calculadora_4bits (
         .S(resta)
     );
 
-
-    // =====================================================
-    // RESTA INVERSA
-    // codigo = 011
-    // B - A
-    // =====================================================
-
     restador_4bits RESTADOR_INVERSO (
         .A(op2),
         .B(op1),
         .S(resta_inversa)
     );
-
-
-    // =====================================================
-    // DESPLAZAMIENTO IZQUIERDA
-    // codigo = 100
-    // A << B[1:0]
-    // =====================================================
 
     des_izq DESPLAZAMIENTO_IZQ (
         .A(op1),
@@ -113,23 +75,11 @@ module calculadora_4bits (
         .S(shift_izq)
     );
 
-
-    // =====================================================
-    // DESPLAZAMIENTO DERECHA
-    // codigo = 101
-    // A >> B[1:0]
-    // =====================================================
-
     des_der DESPLAZAMIENTO_DER (
         .A(op1),
         .cantidad(op2[1:0]),
         .S(shift_der)
     );
-
-
-    // =====================================================
-    // SELECTOR DE OPERACIONES
-    // =====================================================
 
     selector_operaciones SELECTOR (
         .codigo(codigo),
@@ -141,11 +91,6 @@ module calculadora_4bits (
         .resultado(resultado_calculado)
     );
 
-
-    // =====================================================
-    // REGISTRO DEL RESULTADO
-    // =====================================================
-
     registro_resultados REGISTRO (
         .clk(clk),
         .ejecutar(ejecutar),
@@ -153,11 +98,6 @@ module calculadora_4bits (
         .resultado_calculado(resultado_calculado),
         .resultado(resultado_anterior)
     );
-
-
-    // =====================================================
-    // SALIDA
-    // =====================================================
 
     assign resultado = resultado_anterior;
 
