@@ -28,10 +28,6 @@ module top (
     output wire o_Segment2_G
 );
 
-    // =====================================================
-    // BOTONES
-    // =====================================================
-
     wire pulso_sw1;
     wire pulso_sw2;
     wire pulso_sw3;
@@ -62,10 +58,7 @@ module top (
     );
 
 
-    // =====================================================
-    // ESTADOS
-    // =====================================================
-
+   
     localparam EST_OPERACION = 2'b00;
     localparam EST_OP1       = 2'b01;
     localparam EST_OP2       = 2'b10;
@@ -73,10 +66,6 @@ module top (
 
     reg [1:0] estado = EST_OPERACION;
 
-
-    // =====================================================
-    // REGISTROS
-    // =====================================================
 
     reg [2:0] codigo_reg = 3'b000;
     reg [3:0] op1_reg = 4'b0000;
@@ -87,17 +76,13 @@ module top (
     wire [3:0] resultado;
 
 
-    // =====================================================
-    // CONTROL
-    // =====================================================
+    
 
     always @(posedge i_Clk) begin
 
         case (estado)
 
-            // ---------------------------------------------
-            // SELECCION DE OPERACION
-            // ---------------------------------------------
+         
             EST_OPERACION: begin
 
                 sel_op2_reg <= 1'b0;
@@ -112,7 +97,7 @@ module top (
 
                 end
 
-                // SW2: disminuir codigo
+                
                 if (pulso_sw2) begin
 
                     if (codigo_reg == 3'b000)
@@ -122,7 +107,7 @@ module top (
 
                 end
 
-                // SW3: confirmar operacion
+               
                 if (pulso_sw3) begin
 
                     // Si es 000, se ejecuta reset
@@ -146,9 +131,7 @@ module top (
             end
 
 
-            // ---------------------------------------------
-            // PRIMER OPERANDO
-            // ---------------------------------------------
+            
             EST_OP1: begin
 
                 if (pulso_sw1)
@@ -168,9 +151,6 @@ module top (
             end
 
 
-            // ---------------------------------------------
-            // SEGUNDO OPERANDO
-            // ---------------------------------------------
             EST_OP2: begin
 
                 if (pulso_sw1)
@@ -188,9 +168,6 @@ module top (
             end
 
 
-            // ---------------------------------------------
-            // RESULTADO
-            // ---------------------------------------------
             EST_RESULTADO: begin
 
                 if (pulso_sw3) begin
@@ -216,10 +193,6 @@ module top (
     end
 
 
-    // =====================================================
-    // EJECUCION
-    // =====================================================
-
     wire ejecutar_calculadora;
 
     assign ejecutar_calculadora =
@@ -228,10 +201,6 @@ module top (
          (codigo_reg == 3'b000) &&
          pulso_sw3);
 
-
-    // =====================================================
-    // CALCULADORA
-    // =====================================================
 
     calculadora_4bits CALCULADORA (
         .clk(i_Clk),
@@ -244,10 +213,6 @@ module top (
     );
 
 
-    // =====================================================
-    // LEDs
-    // =====================================================
-
     assign o_LED_1 =
         (estado == EST_OPERACION) ? codigo_reg[0] : 1'b0;
 
@@ -259,10 +224,6 @@ module top (
 
     assign o_LED_4 = sel_op2_reg;
 
-
-    // =====================================================
-    // VALOR A MOSTRAR
-    // =====================================================
 
     reg [3:0] valor_display;
 
@@ -293,9 +254,6 @@ module top (
     end
 
 
-    // =====================================================
-    // SIGNO + MAGNITUD
-    // =====================================================
 
     wire es_negativo;
     wire [3:0] valor_invertido;
@@ -310,10 +268,6 @@ module top (
         ? (valor_invertido + 1'b1)
         : valor_display;
 
-
-    // =====================================================
-    // 7 SEGMENTOS
-    // =====================================================
 
     wire [6:0] seg_signo;
     wire [6:0] seg_valor;
@@ -330,10 +284,6 @@ module top (
     );
 
 
-    // =====================================================
-    // DISPLAY 1: SIGNO
-    // =====================================================
-
     assign o_Segment1_A = ~seg_signo[6];
     assign o_Segment1_B = ~seg_signo[5];
     assign o_Segment1_C = ~seg_signo[4];
@@ -342,10 +292,6 @@ module top (
     assign o_Segment1_F = ~seg_signo[1];
     assign o_Segment1_G = ~seg_signo[0];
 
-
-    // =====================================================
-    // DISPLAY 2: NUMERO
-    // =====================================================
 
     assign o_Segment2_A = ~seg_valor[6];
     assign o_Segment2_B = ~seg_valor[5];
@@ -358,10 +304,6 @@ module top (
 endmodule
 
 
-
-// =========================================================
-// DEBOUNCE
-// =========================================================
 
 module debounce (
     input  wire clk,
@@ -409,10 +351,6 @@ module debounce (
 endmodule
 
 
-
-// =========================================================
-// HEX -> 7 SEGMENTOS
-// =========================================================
 
 module seven_segment (
     input  wire [3:0] valor,

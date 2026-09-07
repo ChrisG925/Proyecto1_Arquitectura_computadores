@@ -9,8 +9,7 @@ module selector_ope2 (
 
     not inv (n_sel, sel_op2);
 
-    // Cuando sel_op2 = 0, se selecciona op2_ext
-    // Cuando sel_op2 = 1, se selecciona resultado_anterior
+
 
     wire [3:0] externo;
     wire [3:0] anterior;

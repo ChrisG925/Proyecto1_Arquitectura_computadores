@@ -10,13 +10,13 @@ module restador_4bits (
     wire C3;
     wire C4;
 
-    // Invertir B: complemento a 1
+    
     not n0 (Bn[0], B[0]);
     not n1 (Bn[1], B[1]);
     not n2 (Bn[2], B[2]);
     not n3 (Bn[3], B[3]);
 
-    // A - B = A + NOT(B) + 1
+    
 
     full_adder FA0 (
         .A(A[0]),

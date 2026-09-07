@@ -116,9 +116,6 @@ module calculadora_4bits_tb_basico;
 
     repeat (2) @(posedge clk);
 
-    // ==========================================
-    // SUMAS
-    // ==========================================
 
     probar(
       SUMA,
@@ -145,10 +142,6 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // RESTAS
-    // ==========================================
-
     probar(
       RESTA,
       4'b0101,
@@ -174,10 +167,6 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // RESTA INVERSA
-    // B - A
-    // ==========================================
 
     probar(
       RESTA_INV,
@@ -194,14 +183,6 @@ module calculadora_4bits_tb_basico;
       4'b1101,
       "resta inversa 2 - 5 = -3"
     );
-
-
-    // ==========================================
-    // DESPLAZAMIENTO A LA IZQUIERDA
-    // A = 1100
-    // B = 0001 -> desplazar 1
-    // 1100 << 1 = 1000
-    // ==========================================
 
     probar(
       SHIFT_IZQ,
@@ -220,10 +201,6 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // DESPLAZAMIENTO A LA DERECHA
-    // ==========================================
-
     probar(
       SHIFT_DER,
       4'b1100,
@@ -241,17 +218,6 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // SEL_OP2 = 1
-    // Se guarda primero:
-    // 3 + 4 = 7
-    //
-    // Después:
-    // A = 2
-    // op2 = resultado anterior = 7
-    // 2 + 7 = 9
-    // ==========================================
-
     probar(
       SUMA,
       4'b0011,
@@ -268,13 +234,7 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // SEL_OP2 CON RESTA
-    //
-    // Resultado anterior = 9
-    // A = 3
-    // 3 - 9 = -6 = 1010
-    // ==========================================
+   
 
     probar_resultado_anterior(
       RESTA,
@@ -284,11 +244,7 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // RESET
-    // codigo = 000
-    // ==========================================
-
+    
     probar(
       RESET,
       4'b0000,
@@ -298,10 +254,7 @@ module calculadora_4bits_tb_basico;
     );
 
 
-    // ==========================================
-    // CODIGOS NO UTILIZADOS
-    // ==========================================
-
+    
     probar(
       CODIGO_110,
       4'b0101,

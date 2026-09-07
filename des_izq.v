@@ -8,19 +8,19 @@ module des_izq (
     wire [3:0] s2;
     wire [3:0] s3;
 
-    // A << 1
+    
     buf b1_1 (s1[1], A[0]);
     buf b1_2 (s1[2], A[1]);
     buf b1_3 (s1[3], A[2]);
     buf b1_0 (s1[0], 1'b0);
 
-    // A << 2
+    
     buf b2_2 (s2[2], A[0]);
     buf b2_3 (s2[3], A[1]);
     buf b2_0 (s2[0], 1'b0);
     buf b2_1 (s2[1], 1'b0);
 
-    // A << 3
+    
     buf b3_3 (s3[3], A[0]);
     buf b3_0 (s3[0], 1'b0);
     buf b3_1 (s3[1], 1'b0);
@@ -37,16 +37,16 @@ module des_izq (
     wire sel2;
     wire sel3;
 
-    // 00
+   
     and a0 (sel0, n1, n0);
 
-    // 01
+   
     and a1 (sel1, n1, cantidad[0]);
 
-    // 10
+    
     and a2 (sel2, cantidad[1], n0);
 
-    // 11
+    
     and a3 (sel3, cantidad[1], cantidad[0]);
 
     wire [3:0] r0;

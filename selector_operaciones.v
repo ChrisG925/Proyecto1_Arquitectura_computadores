@@ -18,26 +18,26 @@ module selector_operaciones (
     not inv1 (n1, codigo[1]);
     not inv2 (n2, codigo[2]);
 
-    // Señales de selección
+    
     wire sel_suma;
     wire sel_resta;
     wire sel_resta_inv;
     wire sel_izq;
     wire sel_der;
 
-    // 001 -> suma
+   
     and s0 (sel_suma, n2, n1, codigo[0]);
 
-    // 010 -> resta
+    
     and s1 (sel_resta, n2, codigo[1], n0);
 
-    // 011 -> resta inversa
+    
     and s2 (sel_resta_inv, n2, codigo[1], codigo[0]);
 
-    // 100 -> desplazamiento izquierda
+    
     and s3 (sel_izq, codigo[2], n1, n0);
 
-    // 101 -> desplazamiento derecha
+    
     and s4 (sel_der, codigo[2], n1, codigo[0]);
 
     wire [3:0] r_suma;
@@ -46,7 +46,7 @@ module selector_operaciones (
     wire [3:0] r_izq;
     wire [3:0] r_der;
 
-    // Habilitar cada resultado
+    
     and as0 (r_suma[0], suma[0], sel_suma);
     and as1 (r_suma[1], suma[1], sel_suma);
     and as2 (r_suma[2], suma[2], sel_suma);
@@ -72,7 +72,7 @@ module selector_operaciones (
     and ad2 (r_der[2], shift_der[2], sel_der);
     and ad3 (r_der[3], shift_der[3], sel_der);
 
-    // Unir los resultados
+    
     or o0 (resultado[0],
            r_suma[0],
            r_resta[0],

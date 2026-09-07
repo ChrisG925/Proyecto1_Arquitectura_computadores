@@ -28,7 +28,6 @@ module calculadora_4bits (
     not inv_codigo1 (n_codigo1, codigo[1]);
     not inv_codigo2 (n_codigo2, codigo[2]);
 
-    // Detecta cuando el codigo de operacion es 000
     and reset_detect (
         codigo_reset,
         n_codigo2,
@@ -36,8 +35,6 @@ module calculadora_4bits (
         n_codigo0
     );
 
-    // El resultado se reinicia solamente cuando
-    // se confirma la operacion 000 con ejecutar
     and reset_gate (
         reset_codigo,
         codigo_reset,
